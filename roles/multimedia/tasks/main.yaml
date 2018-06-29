@@ -1,0 +1,46 @@
+---
+- name: install multimedia packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "vlc"
+    - "libdvdnav4"
+    - "libdvdread4"
+    - "libdvdread-dev"
+    - "gstreamer1.0-plugins-base"
+    - "gstreamer1.0-plugins-good"
+    - "gstreamer1.0-plugins-bad"
+    - "gstreamer1.0-plugins-ugly"
+
+- name: clone libdvdcss
+  become: yes
+  git:
+    repo: 'http://code.videolan.org/videolan/libdvdcss.git'
+    dest: '/usr/src/libdvdcss'
+
+- name: bootstrap libdvdcss
+  become: yes
+  shell: autoreconf -i
+  args:
+    chdir: /usr/src/libdvdcss
+
+- name: configure libdvdcss
+  become: yes
+  shell: ./configure --prefix=/usr
+  args:
+    chdir: /usr/src/libdvdcss
+
+- name: build libdvdcss
+  become: yes
+  make:
+    chdir: /usr/src/libdvdcss
+    target: all
+
+- name: install libdvdcss
+  become: yes
+  make:
+    chdir: /usr/src/libdvdcss
+    target: install
+

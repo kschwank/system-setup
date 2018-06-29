@@ -1,0 +1,7 @@
+---
+- name: install i3
+  become: yes
+  package:
+    name: i3
+    state: latest
+

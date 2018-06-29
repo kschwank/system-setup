@@ -1,0 +1,13 @@
+---
+- name: ensure htop
+  become: yes
+  package:
+    name: htop
+    state: latest
+
+- name: ensure inotify
+  become: yes
+  package:
+    name: inotify-tools
+    state: latest
+

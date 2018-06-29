@@ -1,0 +1,11 @@
+---
+- name: clone fzf
+  git:
+    repo: "https://github.com/junegunn/fzf.git"
+    dest: "/home/{{ user }}/.fzf"
+
+- name: install fzf
+  shell: .fzf/install
+  args:
+    chdir: "/home/{{ user }}/"
+

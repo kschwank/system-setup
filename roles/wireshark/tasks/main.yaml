@@ -1,0 +1,32 @@
+---
+- name: ensure wireshark-qt
+  become: yes
+  package:
+    name: "wireshark-qt"
+    state: latest
+
+- name: create wireshark group
+  become: yes
+  group:
+    name: "wireshark"
+    state: present
+    system: yes
+
+- name: add user to group
+  become: yes
+  user:
+    name: "{{ user }}"
+    group: "wireshark"
+    append: yes
+
+- name: add dumpcap to wireshark group
+  become: yes
+  file:
+    path: "/usr/bin/dumpcap"
+    owner: "root"
+    group: "wireshark"
+
+- name: set file capabilities for dumpcap
+  become: yes
+  shell: "setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap"
+

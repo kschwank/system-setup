@@ -1,0 +1,38 @@
+---
+- name: update and upgrade system
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: ensure https support for apt
+  become: true
+  apt:
+    name: "apt-transport-https"
+    state: latest
+
+- name: ensure ssh-server is installed
+  become: true
+  package: 
+    name: "openssh-server"
+    state: latest
+
+- name: ensure curl is installed
+  become: true
+  package:
+    name: "curl"
+    state: latest
+
+- name: ensure ca-certificates
+  become: true
+  package:
+    name: "ca-certificates"
+    state: latest
+
+- name: ensure software-properties-common
+  become: true
+  package:
+    name: software-properties-common
+    state: latest
+

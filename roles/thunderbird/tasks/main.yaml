@@ -1,0 +1,13 @@
+---
+- name: install Thunderbird
+  become: yes
+  package:
+    name: thunderbird
+    state: latest
+
+- name: install Thunderbird icons
+  become: yes
+  package:
+    name: fonts-symbola
+    state: latest
+

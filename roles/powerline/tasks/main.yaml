@@ -1,0 +1,19 @@
+---
+- name: install python pip
+  become: yes
+  package:
+    name: "python-pip"
+    state: latest
+
+- name: install powerline
+  become: yes
+  pip:
+    name: "powerline-status"
+    state: latest
+
+- name: install powerline symbols
+  become: yes
+  package:
+    name: "fonts-powerline"
+    state: latest
+

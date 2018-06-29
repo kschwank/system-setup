@@ -1,0 +1,10 @@
+default: bootstrap
+
+bootstrap:
+	mkdir -p plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm.git plugins/tpm
+	/home/{{ user }}/.tmux/plugins/tpm/scripts/install_plugins.sh
+
+clean:
+	rm -rf plugins
+

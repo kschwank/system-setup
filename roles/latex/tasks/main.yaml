@@ -1,0 +1,31 @@
+---
+- name: ensure LaTeX
+  become: yes
+  package:
+    name: "texlive-full"
+    state: latest
+
+- name: ensure Linux Libertine font
+  become: yes
+  package:
+    name: fonts-linuxlibertine
+    state: latest
+
+- name: ensure pandoc
+  become: yes
+  package:
+    name: "pandoc"
+    state: latest
+
+- name: ensure plantuml
+  become: yes
+  package:
+    name: "plantuml"
+    state: latest
+
+- name: ensure texstudio
+  become: yes
+  package:
+    name: "texstudio"
+    state: latest
+

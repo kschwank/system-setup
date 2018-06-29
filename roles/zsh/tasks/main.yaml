@@ -1,0 +1,42 @@
+---
+- name: install zsh
+  become: yes
+  package:
+    name: "zsh"
+    state: latest
+
+- name: install oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    chdir: "/home/{{ user }}"
+
+- name: install solarized-powerline theme
+  git:
+    repo: https://github.com/KuoE0/oh-my-zsh-solarized-powerline-theme.git
+    dest: "/home/{{ user }}/oh-my-zsh-solarized-powerline-theme"
+    clone: yes
+
+- name: add solarized-powerline theme to oh-my-zsh
+  file:
+    src: "/home/{{ user }}/oh-my-zsh-solarized-powerline-theme/solarized-powerline.zsh-theme"
+    dest: "/home/{{ user }}/.oh-my-zsh/themes/solarized-powerline.zsh-theme"
+    state: link
+
+- name: set zsh theme
+  replace:
+    path: "/home/{{ user }}/.zshrc"
+    regexp: "^ZSH_THEME=.*"
+    replace: "ZSH_THEME=\"solarized-powerline\""
+
+- name: set zsh plugins
+  replace:
+    path: "/home/{{ user }}/.zshrc"
+    regexp: "^plugins=.*"
+    replace: "plugins=(vi-mode git docker mvn python gradle ubuntu)"
+
+- name: set zsh as user shell
+  become: yes
+  user:
+    name: "{{ user }}"
+    shell: /usr/bin/zsh
+

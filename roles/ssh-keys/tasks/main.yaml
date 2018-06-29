@@ -1,0 +1,6 @@
+---
+- name: ensure ssh-keys
+  user:
+    name: "{{ user }}"
+    generate_ssh_key: yes
+

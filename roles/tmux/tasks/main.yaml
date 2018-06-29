@@ -1,0 +1,37 @@
+---
+- name: install tmux
+  become: yes
+  package:
+    name: "tmux"
+    state: latest
+
+- name: create user tmux directory
+  file:
+    path: "/home/{{ user }}/.tmux"
+    state: directory
+    owner: "{{ user }}"
+
+- name: install tmux config
+  template:
+    force: yes
+    owner: "{{ user }}"
+    src: "tmux.conf.j2"
+    dest: "/home/{{ user }}/.tmux.conf"
+
+- name: install tmux plugin bootstrap
+  template:
+    force: yes
+    owner: "{{ user }}"
+    src: "tmux_bootstrap.j2"
+    dest: "/home/{{ user }}/.tmux/makefile"
+
+- name: clean tmux plugins
+  make:
+    chdir: "/home/{{ user }}/.tmux"
+    target: "clean"
+
+- name: install tmux plugins
+  make:
+    chdir: "/home/{{ user }}/.tmux"
+    target: "bootstrap"
+

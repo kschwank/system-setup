@@ -1,0 +1,7 @@
+---
+- name: ensure telegram
+  become: yes
+  package:
+    name: telegram-desktop
+    state: latest
+

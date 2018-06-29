@@ -1,0 +1,51 @@
+---
+- name: install vim
+  become: yes
+  package:
+    name: "vim"
+    state: latest
+
+- name: clean vim config
+  file:
+    path: "/home/{{ user }}/.vimrc"
+    state: absent
+
+- name: create user vim directory
+  file:
+    path: "/home/{{ user }}/.vim"
+    state: directory
+
+- name: install vim plugin manager bootstrap
+  template:
+    backup: no
+    force: yes
+    owner: "{{ user }}"
+    src: "vundle_bootstrap_makefile.j2"
+    dest: "/home/{{ user }}/.vim/makefile"
+
+- name: install temporary vim config with plugin list
+  template:
+    backup: yes
+    force: yes
+    owner: "{{ user }}"
+    src: "vimrc_temp.j2"
+    dest: "/home/{{ user }}/.vimrc"
+
+- name: clean vim plugins
+  make:
+    chdir: "/home/{{ user }}/.vim/"
+    target: "clean"
+
+- name: install vim plugins
+  make:
+    chdir: "/home/{{ user }}/.vim/"
+    target: "bootstrap"
+
+- name: install final vim config
+  template:
+    backup: yes
+    force: yes
+    owner: "{{ user }}"
+    src: "vimrc.j2"
+    dest: "/home/{{ user }}/.vimrc"
+

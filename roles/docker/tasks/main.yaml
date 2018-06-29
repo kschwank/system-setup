@@ -1,0 +1,25 @@
+---
+- name: install docker repo key
+  become: yes
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
+
+- name: install docker repo
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    state: present
+
+- name: install docker
+  become: yes
+  package:
+    name: "docker-ce"
+    state: latest
+
+- name: add user to docker group
+  become: yes
+  user:
+    name: "{{ user }}"
+    append: yes
+    groups: docker
+
+

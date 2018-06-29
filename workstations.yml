@@ -1,0 +1,26 @@
+---
+- hosts: blackbox
+  roles:
+    - common
+    - base-system
+    - ansible
+    - docker
+    - ssh-keys
+    - base-devel
+    - java-devel
+    - git
+    - powerline
+    - tmux
+    - zsh
+    - fzf
+    - vim
+    - i3
+    - multimedia
+    - thunderbird
+    - firefox
+    - telegram
+    - nextcloud
+    - latex
+    - telegram
+    - wireshark
+

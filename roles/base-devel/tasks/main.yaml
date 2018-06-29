@@ -1,0 +1,25 @@
+---
+- name: install build-essential
+  become: yes
+  package: 
+    name: "build-essential"
+    state: latest
+
+- name: ensure autoconf
+  become: yes
+  package:
+    name: autoconf
+    state: latest
+
+- name: ensure libtool
+  become: yes
+  package:
+    name: libtool
+    state: latest
+
+- name: install git
+  become: yes
+  package:
+    name: "git"
+    state: latest
+

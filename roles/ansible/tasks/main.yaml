@@ -1,0 +1,13 @@
+---
+- name: ensure ansible
+  become: yes
+  package:
+    name: ansible
+    state: latest
+
+- name: ensure sshpass
+  become: yes
+  package:
+    name: sshpass
+    state: latest
+

@@ -1,0 +1,25 @@
+---
+- name: install openjdk 11
+  become: yes
+  package:
+    name: "openjdk-11-jdk"
+    state: latest
+
+- name: install openjdk 8
+  become: yes
+  package:
+    name: "openjdk-8-jdk"
+    state: latest
+
+- name: install groovy
+  become: yes
+  package:
+    name: "groovy"
+    state: latest
+
+- name: install scala
+  become: yes
+  package:
+    name: "scala"
+    state: latest
+
