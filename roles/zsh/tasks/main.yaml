@@ -16,6 +16,11 @@
     dest: "/home/{{ user }}/oh-my-zsh-solarized-powerline-theme"
     clone: yes
 
+- name: remove existing solarized-powerline theme
+  file:
+    path: "/home/{{ user }}/.oh-my-zsh/themes/solarized-powerline.zsh-theme"
+    state: absent
+
 - name: add solarized-powerline theme to oh-my-zsh
   file:
     src: "/home/{{ user }}/oh-my-zsh-solarized-powerline-theme/solarized-powerline.zsh-theme"

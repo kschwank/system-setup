@@ -1,5 +1,5 @@
 ---
-- hosts: blackbox
+- hosts: all
   roles:
     - common
     - base-system
@@ -23,4 +23,6 @@
     - latex
     - telegram
     - wireshark
+    - anaconda
+    - h2o
 
