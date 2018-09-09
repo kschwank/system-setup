@@ -1,6 +1,8 @@
 .PHONY: desktop
 
-ANSIBLE_OPTS = --user karsten --ask-pass --ask-become-pass -i inventories/production
+SSH_USER := ${USER}
+
+ANSIBLE_OPTS = --user ${SSH_USER} --ask-pass --ask-become-pass -i inventories/production
 
 all:
 	ansible-playbook ${ANSIBLE_OPTS} workstations.yml 
