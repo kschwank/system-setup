@@ -1,0 +1,21 @@
+---
+- name: Download Anaconda3
+  get_url:
+    url: https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+    dest: /tmp/Anaconda3-5.2.0-Linux-x86_64.sh
+    mode: 0744
+
+- name: Ensure SDKs directory exists
+  file:
+    path: "/home/{{ user }}/SDKs"
+    state: directory
+
+- name: Remove old anaconda directory
+  file:
+    path: "/home/{{ user }}/SDKs/anaconda3"
+    state: absent
+
+- name: Install Anaconda3
+  shell: /tmp/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /home/{{ user }}/SDKs/anaconda3
+
+

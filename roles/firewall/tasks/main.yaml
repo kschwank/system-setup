@@ -1,0 +1,45 @@
+---
+- name: ensure iptables is installed
+  become: yes
+  package:
+    name: "iptables"
+    state: latest
+
+- name: ensure iptables-persistence is installed
+  become: yes
+  package:
+    name: "iptables-persistent"
+    state: latest
+
+- name: iptables: flush rules
+  become: yes
+  iptables:
+    flush: yes
+
+# allow local connections
+
+- name: iptables: allow established,related traffic
+  become: yes
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+# Allow new incoming SYN packets on TCP port 22 (SSH).
+- name: iptables: allow ssh connections
+  become: yes
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 22
+    ctstate: NEW
+    syn: match
+    jump: ACCEPT
+    comment: Accept new SSH connections.
+
+# Set the policy for the INPUT chain to DROP
+- name: iptables: drop all other traffic
+  become: yes
+  iptables:
+    chain: INPUT
+    policy: DROP
