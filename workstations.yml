@@ -9,6 +9,7 @@
     - base-devel
     - java-devel
     - git
+    - rust
     - powerline
     - tmux
     - zsh
