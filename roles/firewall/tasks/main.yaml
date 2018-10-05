@@ -11,14 +11,25 @@
     name: "iptables-persistent"
     state: latest
 
-- name: iptables: flush rules
+# allow local connections
+- name: iptables allow local ip4
   become: yes
   iptables:
-    flush: yes
+    ip_version: ipv4
+    chain: INPUT
+    source: 127.0.0.1
+    jump: ACCEPT
 
-# allow local connections
+- name: iptables allow local ip6
+  become: yes
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    source: ::1
+    jump: ACCEPT
 
-- name: iptables: allow established,related traffic
+# allow established connections
+- name: iptables allow established,related traffic
   become: yes
   iptables:
     chain: INPUT
@@ -26,7 +37,7 @@
     jump: ACCEPT
 
 # Allow new incoming SYN packets on TCP port 22 (SSH).
-- name: iptables: allow ssh connections
+- name: iptables allow ssh connections
   become: yes
   iptables:
     chain: INPUT
@@ -38,8 +49,9 @@
     comment: Accept new SSH connections.
 
 # Set the policy for the INPUT chain to DROP
-- name: iptables: drop all other traffic
+- name: iptables drop all other traffic
   become: yes
   iptables:
     chain: INPUT
     policy: DROP
+

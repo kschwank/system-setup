@@ -4,6 +4,7 @@
     - common
     - base-system
     - ansible
+    - firewall
     - docker
     - ssh-keys
     - base-devel

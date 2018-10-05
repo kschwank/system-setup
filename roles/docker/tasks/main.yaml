@@ -15,11 +15,22 @@
     name: "docker-ce"
     state: latest
 
+- name: create docker systemd directory
+  become: yes
+  file:
+    path: "/etc/systemd/system/docker.service.d"
+    state: directory
+
+- name: configure docker systemd start
+  become: yes
+  copy:
+    src: "noiptables.conf"
+    dest: "/etc/systemd/system/docker.service.d/noiptables.conf"
+
 - name: add user to docker group
   become: yes
   user:
     name: "{{ user }}"
     append: yes
     groups: docker
-
 

@@ -17,7 +17,7 @@
 - name: clone libdvdcss
   become: yes
   git:
-    repo: 'http://code.videolan.org/videolan/libdvdcss.git'
+    repo: 'https://code.videolan.org/videolan/libdvdcss.git'
     dest: '/usr/src/libdvdcss'
 
 - name: bootstrap libdvdcss
