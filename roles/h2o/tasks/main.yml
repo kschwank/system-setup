@@ -1,12 +1,12 @@
 ---
 - name: Download H2O package
   get_url:
-    url: 'https://h2o-release.s3.amazonaws.com/h2o/rel-wright/5/h2o-3.20.0.5.zip'
-    dest: /tmp/h2o-3.20.0.5.zip
+    url: 'https://h2o-release.s3.amazonaws.com/h2o/rel-wright/9/h2o-3.20.0.9.zip'
+    dest: /tmp/h2o-3.20.0.9.zip
 
 - name: Clear old H2O installation
   file:
-    path: /home/{{ user }}/SDKs/h2o-3.20.0.5
+    path: /home/{{ user }}/SDKs/h2o-3.20.0.9
     state: absent
 
 - name: Ensure SDKs directory
@@ -16,5 +16,5 @@
 
 - name: Install H2O
   shell:
-    unzip /tmp/h2o-3.20.0.5.zip -d /home/{{ user }}/SDKs/
+    unzip /tmp/h2o-3.20.0.9.zip -d /home/{{ user }}/SDKs/
 
